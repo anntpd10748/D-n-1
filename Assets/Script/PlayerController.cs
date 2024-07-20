@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Threading;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Speeds { Slow = 0, Normal = 1, Fast = 2, Faster = 3, Fastest = 4 };
-public enum Gamemodes { Cube = 0, Ship = 1 };
+public enum Gamemodes { Cube = 0, Ship = 1, Spider = 2 };
 
 
 public class PlayerController : MonoBehaviour
 {
-    public Transform GroundCheckTransform;
+   
     public float GroundCheckRadius;
     public LayerMask GroundMask;
     private float Jump = 8;
@@ -21,7 +22,8 @@ public class PlayerController : MonoBehaviour
     float[] SpeedValues = { 8.6f, 10.4f, 12.96f, 15.6f, 19.27f };
     public Speeds CurrentSpeed;
     public Gamemodes CurrentGameMode;
-    int Gravity = 1;
+    public int Gravity = 1;
+    public bool clickProcessed = false;
     void Start()
     {
         coll2d = GetComponent<BoxCollider2D>();
@@ -29,7 +31,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.position += Vector3.right * SpeedValues[(int)CurrentSpeed] * Time.deltaTime;
         Invoke(CurrentGameMode.ToString(),0);
@@ -47,22 +49,14 @@ public class PlayerController : MonoBehaviour
         rg2d.gravityScale = rg2d.gravityScale * Gravity;
     }
 
+    void Spider()
+    {
+        Generic.CreateGameMod(rg2d, this, true, 238.29f, 6.2f, false, true, 0, 238.29f);
+    }
+
     void Cube()
     {
-        rg2d.gravityScale = 12.41067f * Gravity;
-
-        if (checkJump())
-        {
-            Vector3 Rotation = Sprite.rotation.eulerAngles;
-            Rotation.z = Mathf.Round(Rotation.z / 90) * 90;
-            Sprite.rotation = Quaternion.Euler(Rotation);
-
-            JumpController();
-        }
-        else
-        {
-            Sprite.Rotate(Vector3.back, 452.4152186f * Time.deltaTime * Gravity);
-        }
+        Generic.CreateGameMod(rg2d, this, true, 19.5269f, 9.057f, true, false, 409.1f);
     }
 
     public void JumpController()
@@ -74,14 +68,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    bool OnGround()
-    {
-        return Physics2D.OverlapBox(GroundCheckTransform.position + Vector3.up - Vector3.up * (Gravity - 1 / -2), Vector2.right * 1.1f + Vector2.up * GroundCheckRadius, 0, GroundMask);
-    }
-
-     bool checkJump()
+    public bool checkJump()
     {
         return Physics2D.BoxCast(coll2d.bounds.center, coll2d.bounds.size, 0f, Vector2.down, 1f, Ground);
+    }
+
+    public bool checkJump2()
+    {
+        return Physics2D.OverlapBox(transform.position + Vector3.down * Gravity * 0.5f, Vector2.right * 1.1f + Vector2.up * GroundCheckRadius, 0, GroundMask);
     }
 
     public void GotoPortal(Gamemodes Gamemode, Speeds Speed, int gravity, int State)
@@ -98,6 +92,21 @@ public class PlayerController : MonoBehaviour
                 Gravity = gravity;
                 rg2d.gravityScale = Mathf.Abs(rg2d.gravityScale) * gravity;
                 break;
+        }
+    }
+    public void LoadScene(int sceneIndex)
+    {
+        SceneManager.LoadScene(sceneIndex);
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag.Equals("Spike"))
+        {
+            LoadScene(5);
+        }
+        if (collision.gameObject.tag.Equals("Finish"))
+        {
+            LoadScene(6);
         }
     }
 }
