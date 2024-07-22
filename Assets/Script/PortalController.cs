@@ -8,14 +8,9 @@ public class PortalController : MonoBehaviour
     public Speeds Speed;
     public bool gravity;
     public int State;
-    
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    public void initiatePortal(PlayerController movement)
     {
-        try
-        {
-            PlayerController movement = collision.gameObject.GetComponent<PlayerController>();
-            movement.GotoPortal(Gamemode, Speed, gravity ? 1 : -1, State);
-        }
-        catch { }
+        movement.GotoPortal(Gamemode, Speed, gravity ? 1 : -1, State);
     }
 }

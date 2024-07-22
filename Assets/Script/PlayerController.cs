@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum Speeds { Slow = 0, Normal = 1, Fast = 2, Faster = 3, Fastest = 4 };
-public enum Gamemodes { Cube = 0, Ship = 1, Spider = 2 };
+public enum Gamemodes { Cube = 0, Ship = 1, Saw = 2 };
 
 
 public class PlayerController : MonoBehaviour
@@ -39,14 +39,9 @@ public class PlayerController : MonoBehaviour
 
     void Ship()
     {
+        rg2d.gravityScale = 2.93f * (Input.GetKey(KeyCode.Space) ? -1 : 1) * Gravity;
+        Generic.VelocityLimit(9.95f, rg2d);
         Sprite.rotation = Quaternion.Euler(0, 0, rg2d.velocity.y * 2);
-
-        if (Input.GetKey(KeyCode.Space))
-            rg2d.gravityScale = -4.314969f;
-        else
-            rg2d.gravityScale = 4.314969f;
-
-        rg2d.gravityScale = rg2d.gravityScale * Gravity;
     }
 
     void Spider()
@@ -94,6 +89,16 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        PortalController portal = collision.gameObject.GetComponent<PortalController>();
+        if(portal)
+        {
+            portal.initiatePortal(this);
+        }
+    }
+
     public void LoadScene(int sceneIndex)
     {
         SceneManager.LoadScene(sceneIndex);
