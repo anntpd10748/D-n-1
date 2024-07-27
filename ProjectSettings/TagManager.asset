@@ -14,7 +14,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
+  - Player
   - 
   - 
   - 
@@ -51,4 +51,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1097342381
+    locked: 0
+  - name: Grill
+    uniqueID: 3180036819
     locked: 0
