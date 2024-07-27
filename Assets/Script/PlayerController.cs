@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         Sprite.rotation = Quaternion.Euler(0, 0, rg2d.velocity.y * 2);
     }
 
-    void Spider()
+    void Saw()
     {
         Generic.CreateGameMod(rg2d, this, true, 238.29f, 6.2f, false, true, 0, 238.29f);
     }
