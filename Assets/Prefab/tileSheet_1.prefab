@@ -10,7 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3534961624185833999}
   - component: {fileID: 4575689117823552616}
+<<<<<<< Updated upstream:Assets/Prefab/tileSheet_1.prefab
   - component: {fileID: 870700666817758606}
+=======
+  - component: {fileID: 5429238503040726276}
+>>>>>>> Stashed changes:Assets/Sprites/tileSheet_1.prefab
   m_Layer: 0
   m_Name: tileSheet_1
   m_TagString: Spike
@@ -85,8 +89,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+<<<<<<< Updated upstream:Assets/Prefab/tileSheet_1.prefab
 --- !u!60 &870700666817758606
 PolygonCollider2D:
+=======
+--- !u!68 &5429238503040726276
+EdgeCollider2D:
+>>>>>>> Stashed changes:Assets/Sprites/tileSheet_1.prefab
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,6 +127,7 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+<<<<<<< Updated upstream:Assets/Prefab/tileSheet_1.prefab
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -141,3 +151,13 @@ PolygonCollider2D:
       - {x: -0.71875, y: -0.84375}
       - {x: -0.6875, y: -0.84375}
   m_UseDelaunayMesh: 0
+=======
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -1, y: 0}
+  - {x: 1, y: 0}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
+>>>>>>> Stashed changes:Assets/Sprites/tileSheet_1.prefab
